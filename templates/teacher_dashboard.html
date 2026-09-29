@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Teacher Dashboard</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<style>
+
+    body {
+        background: #f5f7fb;
+    }
+
+    .dashboard-header {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .stat-card {
+        background: white;
+        border: none;
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        transition: 0.2s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .stat-title {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .management-card {
+        background: white;
+        border: none;
+        border-radius: 16px;
+        padding: 10px;
+        height: 100%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .management-card h5 {
+        font-weight: 600;
+    }
+
+    .management-card p {
+        color: #6c757d;
+        min-height: 48px;
+    }
+
+    .section-title {
+        font-weight: 700;
+    }
+
+    .welcome-box {
+        border-radius: 16px;
+        border: none;
+        padding: 20px;
+    }
+
+    .btn {
+        border-radius: 9px;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+```
+<!-- HEADER -->
+
+<div class="dashboard-header mb-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <div>
+
+            <h1 class="fw-bold mb-1">
+                Teacher Dashboard
+            </h1>
+
+            <p class="text-muted mb-0">
+                Coaching Assignment Portal
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('teacher_logout') }}"
+            class="btn btn-danger px-4"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- WELCOME -->
+
+<div class="alert alert-success welcome-box shadow-sm mb-4">
+
+    <strong>
+        Welcome Teacher! 👋
+    </strong>
+
+    <br>
+
+    Manage students, assignments and submissions from one place.
+
+</div>
+
+
+<!-- STATISTICS -->
+
+<h4 class="section-title mb-3">
+    Overview
+</h4>
+
+
+<div class="row">
+
+
+    <!-- STUDENTS -->
+
+    <div class="col-md-4 mb-4">
+
+        <div class="stat-card">
+
+            <div class="card-body">
+
+                <div class="stat-title">
+                    TOTAL STUDENTS
+                </div>
+
+                <p class="stat-number">
+                    {{ total_students }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ASSIGNMENTS -->
+
+    <div class="col-md-4 mb-4">
+
+        <div class="stat-card">
+
+            <div class="card-body">
+
+                <div class="stat-title">
+                    TOTAL ASSIGNMENTS
+                </div>
+
+                <p class="stat-number">
+                    {{ total_assignments }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUBMITTED -->
+
+    <div class="col-md-4 mb-4">
+
+        <div class="stat-card">
+
+            <div class="card-body">
+
+                <div class="stat-title">
+                    SUBMITTED
+                </div>
+
+                <p class="stat-number">
+                    {{ submitted_count }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+
+    <div class="col-md-4 mb-4">
+
+        <div class="stat-card">
+
+            <div class="card-body">
+
+                <div class="stat-title">
+                    PENDING
+                </div>
+
+                <p class="stat-number">
+                    {{ pending_count }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LATE -->
+
+    <div class="col-md-4 mb-4">
+
+        <div class="stat-card">
+
+            <div class="card-body">
+
+                <div class="stat-title">
+                    LATE SUBMISSIONS
+                </div>
+
+                <p class="stat-number">
+                    {{ late_count }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MARKED -->
+
+    <div class="col-md-4 mb-4">
+
+        <div class="stat-card">
+
+            <div class="card-body">
+
+                <div class="stat-title">
+                    MARKED ASSIGNMENTS
+                </div>
+
+                <p class="stat-number">
+                    {{ marked_count }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MANAGEMENT -->
+
+<h4 class="section-title mt-3 mb-3">
+    Management
+</h4>
+
+<div class="row">
+
+    <!-- STUDENTS -->
+
+    <div class="col-md-3 mb-4">
+
+        <div class="management-card">
+
+            <div class="card-body">
+
+                <h5>
+                    Students
+                </h5>
+
+                <p>
+                    Add and manage your students.
+                </p>
+
+                <a
+                    href="{{ url_for('students') }}"
+                    class="btn btn-primary"
+                >
+                    Manage Students
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ASSIGNMENTS -->
+
+    <div class="col-md-3 mb-4">
+
+        <div class="management-card">
+
+            <div class="card-body">
+
+                <h5>
+                    Assignments
+                </h5>
+
+                <p>
+                    Create assignments for your students.
+                </p>
+
+                <a
+                    href="{{ url_for('create_assignment') }}"
+                    class="btn btn-primary"
+                >
+                    Create Assignment
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUBMISSIONS -->
+
+    <div class="col-md-3 mb-4">
+
+        <div class="management-card">
+
+            <div class="card-body">
+
+                <h5>
+                    Submissions
+                </h5>
+
+                <p>
+                    Review, download and mark submissions.
+                </p>
+
+                <a
+                    href="{{ url_for('teacher_submissions') }}"
+                    class="btn btn-primary"
+                >
+                    View Submissions
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADD STUDENT -->
+
+    <div class="col-md-3 mb-4">
+
+        <div class="management-card">
+
+            <div class="card-body">
+
+                <h5>
+                    Add Student
+                </h5>
+
+                <p>
+                    Register a new student in the portal.
+                </p>
+
+                <a
+                    href="{{ url_for('add_student') }}"
+                    class="btn btn-success"
+                >
+                    Add Student
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
